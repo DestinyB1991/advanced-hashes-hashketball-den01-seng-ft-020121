@@ -163,21 +163,18 @@ def player_numbers(team_name)
   end
 end
 
-def player_stats(sought_player_name)
-  new_hash = {}
-  game_hash.collect do |place, team|
-    team.each do |attribute, _data|
-      next unless attribute == :players
-
-      game_hash[place][attribute].each do |player|
-        next unless player[:player_name] == sought_player_name
-
-      end
-    end
+def player_stats(player_name, hashketball)
+  player_name.capitalize!
+  if hashketball[:home][:players].include?(player_name)
+    hashketball[:home][:players][player_name][:stats]
+  elsif hashketball[:away][:players].include?(player_name)
+    hashketball[:away][:players][player_name][:stats]
+  else
+    "No player found."
   end
-  new_hash
 end
 
+puts player_stats("Daffy", hashketball)
 
 def big_shoe_rebounds
   biggest = 0
